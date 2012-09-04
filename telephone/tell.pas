@@ -56,29 +56,42 @@ begin
   end;
 end;
 
-var
+function openfail  (var g: telFile) : boolean ;
+ begin
+  {$I-}
+  reset(g);
+  {$I+}
+  if IOResult <> 0 then
+   openfail:= false
+  else
+   openfail:= true;
+ end;
+
+ var
+ x: boolean;
+ z: integer;
  i: telefone;
  f: telFile;
  n: integer;
 begin
  clrscr;
+ writeln('1-прочитать');
+ writeln('2-добавить');
+ readln(z);
+ assign(f, 'z.db');
+ case z of
+  1: begin
+      x:= openfail(f);
+      if x then
+       readFile(f)
+      else
+       writeln('Ошибка');
+      end;
+  2: begin
+     end;
+ end;
 
- {i:= formRecord;
- showRecord(i)};
- assign(f,'z.db');
- {$I-}
- Reset(f);
- {$I+}
- {if IOResult <> 0 then
-  rewrite(f)
- else
-   begin
-     n := fileSize(f);
-     seek(f, n);
-   end;
- write(f,i);}
-  readFile(f);
- close(f);
+  {readFile(f);
+ close(f);}
  readkey;
-//═ют√щ ъюььхэЄрЁшщ
  end.
